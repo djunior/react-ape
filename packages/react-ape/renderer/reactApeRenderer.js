@@ -10,6 +10,13 @@ import reconciler from 'react-reconciler';
 import reactApeComponent from './reactApeComponent';
 import {precacheFiberNode, updateFiberProps} from './reactApeComponentTree';
 
+import {createStage} from 'mirakulo_renderer';
+// var mirakulo_renderer = require("./mirakulo_renderer.js");
+
+console.log("##################################");
+console.log(createStage);
+console.log("##################################");
+
 export type CanvasComponentContext = {
   _renderQueueForUpdate: Array<mixed>,
   type: 'canvas',
@@ -83,14 +90,19 @@ const ReactApeFiber = reconciler({
       let rootContainerInstanceContext = rootContainerInstance.getContext('2d');
 
       // TODO: Change it.
-      scaleDPI(rootContainerInstance, rootContainerInstanceContext);
+      // scaleDPI(rootContainerInstance, rootContainerInstanceContext);
+      // apeContextGlobal = {
+      //   type: 'canvas',
+      //   _renderQueueForUpdate: [],
+      //   ctx: (rootContainerInstanceContext = rootContainerInstance.getContext(
+      //     '2d'
+      //   )),
+      // };
       apeContextGlobal = {
-        type: 'canvas',
+        type: "stage",
         _renderQueueForUpdate: [],
-        ctx: (rootContainerInstanceContext = rootContainerInstance.getContext(
-          '2d'
-        )),
-      };
+        ctx: createStage()
+      }
     }
 
     const apeElement = reactApeComponent.createElement(
@@ -129,7 +141,15 @@ const ReactApeFiber = reconciler({
   },
 
   prepareUpdate(element, type, oldProps, newProps, rootContainerInstance) {
-    if (newProps) {
+    console.log("ReactApeRenderer - prepareUpdate");
+    console.log("Element: ");
+    console.log(element);
+    console.log("Type: " + type);
+    console.log("Old props: ");
+    console.log(oldProps);
+    console.log("New props:");
+    console.log(newProps);
+    // if (newProps) {
       // const diff = reactApeComponent.diffProperties(
       //   element,
       //   type,
@@ -138,29 +158,29 @@ const ReactApeFiber = reconciler({
       //   rootContainerInstance
       // );
 
-      const apeElement = reactApeComponent.createElement(
-        type,
-        newProps,
-        rootContainerInstance,
-        apeContextGlobal
-      );
+      // const apeElement = reactApeComponent.createElement(
+      //   type,
+      //   newProps,
+      //   rootContainerInstance,
+      //   apeContextGlobal
+      // );
 
-      apeContextGlobal._renderQueueForUpdate.push(apeElement);
-    }
+      // apeContextGlobal._renderQueueForUpdate.push(apeElement);
+    // }
   },
 
   resetAfterCommit(rootContainerInstance) {
-    if (apeContextGlobal._renderQueueForUpdate.length) {
-      clear(apeContextGlobal.ctx);
-      apeContextGlobal._renderQueueForUpdate.forEach(fn => {
-        if (fn.render) {
-          fn.render(apeContextGlobal);
-        } else {
-          fn(apeContextGlobal);
-        }
-      });
-      apeContextGlobal._renderQueueForUpdate = [];
-    }
+    // if (apeContextGlobal._renderQueueForUpdate.length) {
+    //   clear(apeContextGlobal.ctx);
+    //   apeContextGlobal._renderQueueForUpdate.forEach(fn => {
+    //     if (fn.render) {
+    //       fn.render(apeContextGlobal);
+    //     } else {
+    //       fn(apeContextGlobal);
+    //     }
+    //   });
+    //   apeContextGlobal._renderQueueForUpdate = [];
+    // }
   },
 
   resetTextContent(element) {
@@ -221,11 +241,11 @@ const ReactApeFiber = reconciler({
 
     appendChildToContainer(parentInstance, child) {
       console.log('appendChildToContainer', parentInstance, child);
-      if (child.render) {
-        child.render(apeContextGlobal);
-      } else {
-        child(apeContextGlobal);
-      }
+      // if (child.render) {
+      //   child.render(apeContextGlobal);
+      // } else {
+      //   child(apeContextGlobal);
+      // }
     },
 
     removeChild(parentInstance, child) {

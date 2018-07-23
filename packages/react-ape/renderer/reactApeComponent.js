@@ -22,9 +22,9 @@ const ReactApeComponent = {
     internalInstanceHandle
   ) {
     const COMPONENTS = {
-      Image: () => Image.bind(this, props),
-      Text: () => Text.bind(this, props),
-      View: () => new View(props),
+      Image: () => new Image(props, apeContextGlobal),
+      Text: () => new Text(props, apeContextGlobal),
+      View: () => new View(props, apeContextGlobal),
     };
 
     return COMPONENTS[type]
