@@ -14,6 +14,7 @@ const config = {
     extensions: ['.js', '.jsx'],
     modules: [
       sourcePath,
+      path.join(__dirname, 'lib'),
       path.resolve(__dirname, 'node_modules'),
       // yarn-workspaces
       path.resolve(__dirname, '../../node_modules'),

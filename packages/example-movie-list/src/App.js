@@ -6,15 +6,17 @@ const styles = StyleSheet.create({
     top: 62,
     left: 250,
     color: 'white',
-    fontFamily: 'Arial',
-    fontWeight: 'bold',
+    fontFamily: 'open-sans',
+    // fontWeight: 'bold',
+    x: 0,
+    y: 0,
     fontSize: 29,
   },
   time: {
     top: 62,
     left: 1150,
     color: 'red',
-    fontFamily: 'Arial',
+    fontFamily: 'open-sans',
     fontWeight: 'bold',
     fontSize: 25,
   },
@@ -59,12 +61,12 @@ class App extends React.Component {
   }
 
   componentDidMount() {
-    setInterval(() => {
-      const time = new Date()
-        .toTimeString()
-        .replace(/.*(\d{2}:\d{2}:\d{2}).*/, '$1');
-      this.setState({time});
-    }, 100);
+    // setInterval(() => {
+    //   const time = new Date()
+    //     .toTimeString()
+    //     .replace(/.*(\d{2}:\d{2}:\d{2}).*/, '$1');
+    //   this.setState({time});
+    // }, 100);
   }
 
   renderPostersList() {
@@ -98,19 +100,25 @@ class App extends React.Component {
   render() {
     return (
       <View>
-        <Image
-          src={'posters/netflix.png'}
-          style={styles.logo}
-          width={210}
-          height={100}
-        />
-        <Text style={styles.heading}>• Netflix Originals</Text>
+        <Text style={styles.heading}>React Ape usando Mirakulo Renderer!</Text>
         <Text style={styles.time}>{this.state.time}</Text>
-        <Text style={styles.infoAboutRenderer}>Made with React Ape</Text>
-        {this.renderPostersList()}
+        <Image src={'https://cdn-images-1.medium.com/max/1600/1*MxUYDaVKqKCsq9bLsFfHKA.jpeg'} style={{x: 0, y: 50}} width={300} height={295}></Image>
       </View>
     );
   }
 }
+
+      // <View>
+      //   <Image
+      //     src={'posters/netflix.png'}
+      //     style={styles.logo}
+      //     width={210}
+      //     height={100}
+      //   />
+      //   <Text style={styles.heading}>• Netflix Originals</Text>
+      //   <Text style={styles.time}>{this.state.time}</Text>
+      //   <Text style={styles.infoAboutRenderer}>Made with React Ape</Text>
+      //   {this.renderPostersList()}
+      // </View>
 
 render(<App />, document.getElementById('root'));
