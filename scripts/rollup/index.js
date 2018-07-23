@@ -88,7 +88,7 @@ function createBundle({entryPath, bundleType, destName}) {
   }
 
   rollup({
-    external: ['react'],
+    external: ['react', 'mirakulo_renderer'],
     input: entryPath,
     plugins: plugins,
   }).then(bundle => {
