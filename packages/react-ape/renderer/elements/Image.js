@@ -53,10 +53,6 @@ const cacheImageControl = {};
 class ImageComponent {
   constructor(props: Props, apeContext) {
     const {imageElement, src} = props;
-    console.log("X: " + style.x);
-    console.log("Y: " + style.y);
-    console.log("Width: " + width);
-    console.log("Height: " + height);
     this._imgObj = new Bitmap(src);
     this.updateProps(props);
     apeContext.ctx.addChild(this._imgObj);
@@ -72,7 +68,12 @@ class ImageComponent {
       return;
     }
 
-    const {style, imageElement, src, width, height} = props;
+    const {style, imageElement, src, width, height} = newProps;
+
+    // console.log("X: " + style.x);
+    // console.log("Y: " + style.y);
+    // console.log("Width: " + width);
+    // console.log("Height: " + height);
 
     this._imgObj.x = style.x;
     this._imgObj.y = style.y;

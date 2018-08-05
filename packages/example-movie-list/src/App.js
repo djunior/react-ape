@@ -56,53 +56,61 @@ class App extends React.Component {
       {name: 'Stranger Things', src: 'posters/stranger-things.jpg'},
     ];
     this.state = {
-      time: new Date().toTimeString().replace(/.*(\d{2}:\d{2}:\d{2}).*/, '$1'),
+      // time: new Date().toTimeString().replace(/.*(\d{2}:\d{2}:\d{2}).*/, '$1'),
+      position: 0,
     };
   }
 
   componentDidMount() {
-    // setInterval(() => {
-    //   const time = new Date()
-    //     .toTimeString()
-    //     .replace(/.*(\d{2}:\d{2}:\d{2}).*/, '$1');
-    //   this.setState({time});
-    // }, 100);
+    setInterval(() => {
+      // const time = new Date()
+      //   .toTimeString()
+      //   .replace(/.*(\d{2}:\d{2}:\d{2}).*/, '$1');
+      // this.setState({time});
+
+      let position = this.state.position+1;
+      if (position > 3) {
+        position = 0;
+      }
+
+      this.setState({position});
+    }, 200);
   }
 
-  renderPostersList() {
-    const renderRow = (data, idx) => (
-      <View
-        height={200}
-        width={200}
-        key={'poster-list-' + idx}
-        onClick={() => {
-          console.log(data);
-        }}>
-        <Image
-          style={{x: 220 * idx + 30, y: 140, width: 200, height: 300}}
-          src={data.src}
-        />
-        <Text style={{x: 220 * idx + 30, y: 460, color: '#FFF'}}>
-          {data.name}
-        </Text>
-      </View>
-    );
+  // renderPostersList() {
+  //   const renderRow = (data, idx) => (
+  //     <View
+  //       height={200}
+  //       width={200}
+  //       key={'poster-list-' + idx}
+  //       onClick={() => {
+  //         console.log(data);
+  //       }}>
+  //       <Image
+  //         style={{x: 220 * idx + 30, y: 140, width: 200, height: 300}}
+  //         src={data.src}
+  //       />
+  //       <Text style={{x: 220 * idx + 30, y: 460, color: '#FFF'}}>
+  //         {data.name}
+  //       </Text>
+  //     </View>
+  //   );
 
-    return (
-      <ListView
-        dataSource={this.posters}
-        renderRow={renderRow}
-        style={styles.list}
-      />
-    );
-  }
+  //   return (
+  //     <ListView
+  //       dataSource={this.posters}
+  //       renderRow={renderRow}
+  //       style={styles.list}
+  //     />
+  //   );
+  // }
 
   render() {
     return (
       <View>
         <Text style={styles.heading}>React Ape usando Mirakulo Renderer!</Text>
         <Text style={styles.time}>{this.state.time}</Text>
-        <Image src={'https://cdn-images-1.medium.com/max/1600/1*MxUYDaVKqKCsq9bLsFfHKA.jpeg'} style={{x: 0, y: 50}} width={300} height={295}></Image>
+        <Image src={'https://cdn-images-1.medium.com/max/1600/1*MxUYDaVKqKCsq9bLsFfHKA.jpeg'} style={{x: this.state.position * 300, y: 50}} width={300} height={295}></Image>
       </View>
     );
   }
@@ -121,4 +129,4 @@ class App extends React.Component {
       //   {this.renderPostersList()}
       // </View>
 
-render(<App />, document.getElementById('root'));
+render(<App />, null/*, document.getElementById('root')*/);

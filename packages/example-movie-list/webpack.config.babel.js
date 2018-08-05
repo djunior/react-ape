@@ -6,6 +6,7 @@ const sourcePath = path.join(__dirname, 'src');
 
 const config = {
   entry: ['babel-polyfill', path.resolve(sourcePath, 'App.js')],
+  target: "node",
   output: {
     path: __dirname,
     filename: 'bundle.js',
@@ -20,6 +21,9 @@ const config = {
       path.resolve(__dirname, '../../node_modules'),
     ],
   },
+  externals: {
+        "globoplay": "commonjs globoplay",
+    },
   module: {
     rules: [
       {

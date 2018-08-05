@@ -86,8 +86,8 @@ const ReactApeFiber = reconciler({
   ) {
     // console.log('createInstance');
     let apeContext = null;
-    if (!apeContextGlobal && rootContainerInstance.getContext) {
-      let rootContainerInstanceContext = rootContainerInstance.getContext('2d');
+    if (!apeContextGlobal /*&& rootContainerInstance.getContext*/) {
+      // let rootContainerInstanceContext = rootContainerInstance.getContext('2d');
 
       // TODO: Change it.
       // scaleDPI(rootContainerInstance, rootContainerInstanceContext);
@@ -141,14 +141,19 @@ const ReactApeFiber = reconciler({
   },
 
   prepareUpdate(element, type, oldProps, newProps, rootContainerInstance) {
-    console.log("ReactApeRenderer - prepareUpdate");
-    console.log("Element: ");
-    console.log(element);
-    console.log("Type: " + type);
-    console.log("Old props: ");
-    console.log(oldProps);
-    console.log("New props:");
-    console.log(newProps);
+    // console.log("ReactApeRenderer - prepareUpdate");
+    // console.log("Element: ");
+    // console.log(element);
+    // console.log("Type: " + type);
+    // console.log("Old props: ");
+    // console.log(oldProps);
+    // console.log("New props:");
+    // console.log(newProps);
+
+    if (newProps && element && element.updateProps) {
+      element.updateProps(newProps);
+    }
+
     // if (newProps) {
       // const diff = reactApeComponent.diffProperties(
       //   element,
@@ -184,7 +189,7 @@ const ReactApeFiber = reconciler({
   },
 
   resetTextContent(element) {
-    console.log('resetTextContent');
+    // console.log('resetTextContent');
     // noop
   },
 
@@ -228,7 +233,7 @@ const ReactApeFiber = reconciler({
 
   mutation: {
     appendChild(parentInstance, child) {
-      console.log('appendChild', parentInstance, child);
+      // console.log('appendChild', parentInstance, child);
       // if (parentInstance.appendChild) {
       //   parentInstance.appendChild(child);
       // } else {
@@ -240,7 +245,7 @@ const ReactApeFiber = reconciler({
     },
 
     appendChildToContainer(parentInstance, child) {
-      console.log('appendChildToContainer', parentInstance, child);
+      // console.log('appendChildToContainer', parentInstance, child);
       // if (child.render) {
       //   child.render(apeContextGlobal);
       // } else {
@@ -249,27 +254,27 @@ const ReactApeFiber = reconciler({
     },
 
     removeChild(parentInstance, child) {
-      console.log('removeChild');
+      // console.log('removeChild');
       // parentInstance.removeChild(child);
     },
 
     removeChildFromContainer(parentInstance, child) {
-      console.log('removeChildFromContainer');
+      // console.log('removeChildFromContainer');
       // parentInstance.removeChild(child);
     },
 
     insertBefore(parentInstance, child, beforeChild) {
-      console.log('insertBefore');
+      // console.log('insertBefore');
     },
 
     commitUpdate(instance, updatePayload, type, oldProps, newProps) {
-      console.log('>> commitUpdate');
+      // console.log('>> commitUpdate');
     },
 
     commitMount(instance, updatePayload, type, oldProps, newProps) {},
 
     commitTextUpdate(textInstance, oldText, newText) {
-      console.log('>>>', textInstance);
+      // console.log('>>>', textInstance);
       // textInstance.children = newText;
     },
   },
@@ -291,7 +296,7 @@ const ReactApeRenderer = {
     let root = roots.get(containerKey);
     if (!root) {
       root = ReactApeFiber.createContainer(containerKey);
-      roots.set(container, root);
+      roots.set(container || defaultContainer, root);
     }
 
     ReactApeFiber.updateContainer(canvasElement, root, null, callback);
